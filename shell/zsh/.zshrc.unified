@@ -109,8 +109,6 @@ if [[ -f /mnt/repo/dev/warehouse/configs/env/paths.env ]]; then
   source /mnt/repo/dev/warehouse/configs/env/paths.env
 fi
 
-# Podman repo
-alias podman='podman --root /mnt/repo/dev/tools/podman/storage --runroot /run/user/1000/containers'
 
 # ======= RÉPERTOIRE DE DÉMARRAGE =======
 [ -d "/mnt/repo/dev/warehouse" ] && cd "/mnt/repo/dev/warehouse"
