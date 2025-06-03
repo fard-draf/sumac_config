@@ -1,0 +1,116 @@
+# Activation du profilage pour diagnostic (à commenter après optimisation)
+# zmodload zsh/zprof
+
+# ======= OPTIMISATIONS DE PERFORMANCES =======
+# Désactiver les mises à jour automatiques d'Oh My Zsh
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+
+# ======= POWERLEVEL10K INSTANT PROMPT =======
+# Doit rester près du début du fichier .zshrc
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ======= DÉFINITION DES VARIABLES D'ENVIRONNEMENT =======
+# Variables d'environnement de base (avant de charger les chemins)
+export CARGO_HOME="/mnt/repo/dev/tools/rust/cargo"
+export RUSTUP_HOME="/mnt/repo/dev/tools/rust/rustup"
+export RUST_ANALYZER="/mnt/repo/dev/tools/rust/rust-analyzer"
+export NODEJS_HOME="/mnt/repo/dev/tools/nodejs"
+export TYPESCRIPT_HOME="/mnt/repo/dev/tools/typescript"
+
+# ======= GESTION DES CHEMINS =======
+# Fonction pour ajouter à PATH
+path_prepend() {
+  if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
+    PATH="$1:$PATH"
+  fi
+}
+
+# Ajout des chemins dans l'ordre de priorité
+path_prepend "$CARGO_HOME/bin"
+path_prepend "/mnt/repo/dev/tools/rust/rust-analyzer"
+path_prepend "/mnt/repo/dev/tools/solana/active_release/bin"
+path_prepend "$HOME/.local/bin"
+path_prepend "$HOME/bin"
+path_prepend "$NODEJS_HOME/bin"
+path_prepend "$NODEJS_HOME/npm-global/bin"
+path_prepend "/mnt/repo/dev/tools/claude/bin"
+path_prepend "$TYPESCRIPT_HOME/bin"
+
+# ======= CONFIGURATION OH MY ZSH =======
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# ======= OPTIMISATION DES PLUGINS =======
+# Réduit le nombre de plugins au minimum essentiel
+plugins=(git docker vscode npm node rust)
+
+# ======= OPTIMISATION DE L'AUTOCOMPLÉTION =======
+# Cache agressif des complétions
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -c '%Y' ~/.zcompdump 2>/dev/null | date +'%j')" ]; then
+  compinit
+else
+  compinit -C
+fi
+
+# ======= CHARGEMENT OH MY ZSH =======
+source $ZSH/oh-my-zsh.sh
+
+# ======= CONFIGURATION SUPPLÉMENTAIRE =======
+if [ -f /etc/zshrc ]; then
+  source /etc/zshrc
+fi
+
+# ======= SCRIPTS MODULAIRES =======
+if [ -d ~/.bashrc.d ]; then
+  for rc in ~/.bashrc.d/*; do
+    if [ -f "$rc" ]; then
+      source "$rc"
+    fi
+  done
+fi
+unset rc
+
+# ======= CONFIGURATION DE POWERLEVEL10K =======
+# Pour personnaliser le prompt, lancer `p10k configure` ou éditer ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ======= CHARGEMENT DES FICHIERS MODULAIRES =======
+# Vérifiez si les répertoires existent, sinon les créer
+if [[ ! -d /mnt/repo/dev/warehouse/configs/shell/zsh ]]; then
+  mkdir -p /mnt/repo/dev/warehouse/configs/shell/zsh
+fi
+
+if [[ ! -d /mnt/repo/dev/warehouse/configs/shell/common ]]; then
+  mkdir -p /mnt/repo/dev/warehouse/configs/shell/common
+fi
+
+if [[ ! -d /mnt/repo/dev/warehouse/configs/env ]]; then
+  mkdir -p /mnt/repo/dev/warehouse/configs/env
+fi
+
+# Charger les fichiers de configuration modulaires (éviter de charger .zshrc lui-même)
+for config_file in /mnt/repo/dev/warehouse/configs/shell/zsh/*.zsh; do
+  if [[ -f "$config_file" ]]; then
+    source "$config_file"
+  fi
+done
+
+# Charger les variables d'environnement si elles existent
+if [[ -f /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh ]]; then
+  source /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh
+fi
+
+if [[ -f /mnt/repo/dev/warehouse/configs/env/paths.env ]]; then
+  source /mnt/repo/dev/warehouse/configs/env/paths.env
+fi
+
+# ======= RÉPERTOIRE DE DÉMARRAGE =======
+[ -d "/mnt/repo/dev/warehouse" ] && cd "/mnt/repo/dev/warehouse"
+
+# Fin du profilage (à commenter après optimisation)
+# zprof
