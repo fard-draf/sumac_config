@@ -79,6 +79,35 @@ unset rc
 # Pour personnaliser le prompt, lancer `p10k configure` ou éditer ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
+# ======= CONFIGURATION AGENT-SSH ========
+
+# Chemin vers le fichier qui stockera les informations de l'agent
+AGENT_INFO_FILE="$HOME/.ssh/agent.env"
+
+# Fonction pour démarrer l'agent
+start_ssh_agent() {
+    echo "Démarrage d'un nouvel agent SSH..."
+    # L'option "-s" est cruciale pour générer des commandes compatibles zsh/bash
+    ssh-agent -s > "$AGENT_INFO_FILE"
+    # Appliquer les permissions pour la sécurité
+    chmod 600 "$AGENT_INFO_FILE"
+    # Sourcer le fichier pour charger les variables
+    source "$AGENT_INFO_FILE"
+}
+
+# Vérifier si un agent est déjà enregistré et fonctionnel
+if [ -f "$AGENT_INFO_FILE" ]; then
+    source "$AGENT_INFO_FILE"
+    # Vérifier si le processus de l'agent (avec le PID stocké) existe vraiment
+    if ! kill -0 "$SSH_AGENT_PID" > /dev/null 2>&1; then
+        start_ssh_agent
+    fi
+else
+    # Si le fichier d'info n'existe pas, on démarre l'agent
+    start_ssh_agent
+fi
+
 # ======= CHARGEMENT DES FICHIERS MODULAIRES =======
 # Vérifiez si les répertoires existent, sinon les créer
 if [[ ! -d /mnt/repo/dev/warehouse/configs/shell/zsh ]]; then

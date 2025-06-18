@@ -28,11 +28,11 @@ alias zshrc='$EDITOR /mnt/repo/dev/warehouse/configs/shell/zsh/.zshrc.unified'  
 alias reload='source /mnt/repo/dev/warehouse/configs/shell/zsh/.zshrc.unified'    # Recharger zsh
 
 # ======= ALIAS TREE =======
-alias t1='tree -L 1 -a'
-alias t2='tree -L 2 -a'
-alias t3='tree -a -L 3'
-alias t4='tree -a -C -L 4'
-alias t5='tree -a -C -L 5'
+alias t1='tree -L 1 -a -I ".git"'
+alias t2='tree -L 2 -a -I ".git"'
+alias t3='tree -a -L 3 -a -I ".git"'
+alias t4='tree -a -C -L 4 -a -I ".git"'
+alias t5='tree -a -C -L 5 -a -I ".git"'
 
 # ======= ALIAS SYSTÈME =======
 alias update='sudo dnf update -y'
