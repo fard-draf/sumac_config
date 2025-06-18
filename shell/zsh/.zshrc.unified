@@ -1,5 +1,7 @@
 # Activation du profilage pour diagnostic (à commenter après optimisation)
 # zmodload zsh/zprof
+#echo "[DEBUT .zshrc] SSH_AUTH_SOCK = '$SSH_AUTH_SOCK'"
+
 
 # ======= OPTIMISATIONS DE PERFORMANCES =======
 # Désactiver les mises à jour automatiques d'Oh My Zsh
@@ -56,6 +58,7 @@ if [ "$(date +'%j')" != "$(stat -c '%Y' ~/.zcompdump 2>/dev/null | date +'%j')" 
 else
   compinit -C
 fi
+
 
 # ======= CHARGEMENT OH MY ZSH =======
 source $ZSH/oh-my-zsh.sh
@@ -116,3 +119,12 @@ fi
 
 # Fin du profilage (à commenter après optimisation)
 # zprof
+#echo "[FIN .zshrc] SSH_AUTH_SOCK = '$SSH_AUTH_SOCK'"
+
+# ======== SSH AGENT =========
+SYSTEMD_AGENT_SOCK="/run/user/$(id -u)/ssh-agent.socket"
+
+# On vérifie que le socket existe (-S) avant de définir la variable
+if [ -S "$SYSTEMD_AGENT_SOCK" ]; then
+  export SSH_AUTH_SOCK="$SYSTEMD_AGENT_SOCK"
+fi
