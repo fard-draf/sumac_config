@@ -17,6 +17,9 @@ alias repo='cd /mnt/repo'
 alias dev='cd /mnt/repo/dev'
 alias data='cd /mnt/repo/data'
 alias wh='cd /mnt/repo/dev/warehouse'
+alias week='cd /mnt/repo/dev/warehouse/playground/weekly'
+alias korri='cd /mnt/repo/dev/warehouse/projects/professional/korrigan'
+alias ctsol='cd /mnt/repo/dev/warehouse/containers/compose/solana'
 alias inbox='cd /mnt/repo/data/00-INBOX'
 alias projets='cd /mnt/repo/data/01-PROJETS'
 alias resources='cd /mnt/repo/data/02-RESOURCES'
@@ -24,7 +27,7 @@ alias archives='cd /mnt/repo/data/03-ARCHIVES'
 alias admin='cd /mnt/repo/data/04-ADMIN'
 
 # ======= ALIAS CONFIGURATION =======
-alias zshrc='$EDITOR /mnt/repo/dev/warehouse/configs/shell/zsh/.zshrc.unified'    # Éditer rapidement votre .zshrc
+alias zshrc='hx /mnt/repo/dev/warehouse/configs/shell/zsh/.zshrc.unified'    # Éditer rapidement votre .zshrc
 alias reload='source /mnt/repo/dev/warehouse/configs/shell/zsh/.zshrc.unified'    # Recharger zsh
 
 # ======= ALIAS TREE =======
@@ -110,13 +113,13 @@ alias yd='yarn dev'
 alias ys='yarn start'
 
 # ======= ALIAS PNPM =======
-alias p='pnpm'
-alias pi='pnpm install'
-alias pa='pnpm add'
-alias pad='pnpm add -D'
-alias pr='pnpm run'
-alias ps='pnpm start'
-alias pt='pnpm test'
+alias pnp='pnpm'
+alias pnpi='pnpm install'
+alias pnpa='pnpm add'
+alias pnpad='pnpm add -D'
+alias pnpr='pnpm run'
+alias pnps='pnpm start'
+alias pnpt='pnpm test'
 
 # ======= ALIAS TYPESCRIPT =======
 alias tsb='tsc --build'

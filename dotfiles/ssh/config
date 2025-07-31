@@ -1,0 +1,18 @@
+# Connexion vers le serveur Zaatar
+Host zaatar
+    HostName        192.168.2.50
+    User            fard
+    IdentityFile    ~/.ssh/id_rsa_sumac-to-zaatar
+
+
+# SSH AGENT
+Host *
+    AddKeysToAgent yes
+
+
+#GITHUB
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_github_fard
+    IdentitiesOnly yes

@@ -1,4 +1,5 @@
-
+#=======================================================HELIX
+export HELIX_RUNTIME=~/src/helix/runtime
 #=======================================================TYPESCRIPT
 export TYPESCRIPT_HOME="/mnt/repo/dev/tools/typescript"
 #=======================================================CARGO+RUST

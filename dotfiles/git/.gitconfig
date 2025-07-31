@@ -1,0 +1,7 @@
+[user]
+	name = fard-draf
+	email = fard@ik.me
+[push]
+	autoSetupRemote = true
+[alias]
+	lg = log --graph --pretty=format:'%C(yellow)%h%C(reset) -%C(auto)%d%C(reset) %s %C(green)(%ad)%C(reset)' --date=short
