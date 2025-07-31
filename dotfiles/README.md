@@ -17,11 +17,18 @@ dotfiles/
 │           └── kitty.conf
 └── zsh/
     └── .zshrc
-Commandes essentiellesLes commandes suivantes doivent être lancées depuis le répertoire parent des paquets (ex: ~/dotfiles).Installer / Activer un paquet :stow <nom_du_paquet>
-# Exemple: stow kitty
-Désinstaller / Désactiver un paquet :stow -D <nom_du_paquet>
-# Exemple: stow -D kitty
-Ré-appliquer un paquet (supprime et recrée les liens) :stow -R <nom_du_paquet>
-# Exemple: stow -R kitty
-Utiliser un répertoire dotfiles hors de HOME :Si votre dossier dotfiles n'est pas dans ~, utilisez l'option --target (ou -t).# Depuis /path/to/your/dotfiles
+```
+
+Commandes essentiellesLes commandes suivantes doivent être lancées depuis le répertoire parent des paquets (ex: ~/dotfiles).
+##### Installer / Activer un paquet : `stow <nom_du_paquet>`
+ Exemple: `stow kitty`
+
+##### Désinstaller / Désactiver un paquet :stow -D <nom_du_paquet>
+ Exemple: `stow -D kitty`
+
+##### Ré-appliquer un paquet (supprime et recrée les liens) :stow -R <nom_du_paquet>
+ Exemple: `stow -R kitty`
+
+##### Utiliser un répertoire dotfiles hors de HOME :Si votre dossier dotfiles n'est pas dans ~, utilisez l'option --target (ou -t).# Depuis /path/to/your/dotfiles
 stow --target=$HOME <nom_du_paquet>
+ Exemple": `stow -t ~ kitty` 
