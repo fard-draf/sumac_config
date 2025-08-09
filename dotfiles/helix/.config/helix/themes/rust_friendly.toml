@@ -22,12 +22,12 @@
 "*.consuming" = { modifiers = ["crossed_out"] }              # Valeurs consommées barrées
 
 # === CONSTANTES ===
-"constant" = "purple"
-"constant.numeric" = "green"
+"constant" = "purple2"
+"constant.numeric" = "green2"
 "constant.character.escape" = "cyan"
 
 # === CHAÎNES ===
-"string" = "green"
+"string" = "green2"
 "string.regexp" = "orange"
 
 # === COMMENTAIRES ===
@@ -37,8 +37,9 @@
 # === VARIABLES ===
 "variable" = "fg"
 "variable.builtin" = "orange"
-"variable.parameter" = "fg"
-"variable.other.member" = "fg"
+# "variable.parameter" = "fg"
+"variable.parameter" = "orange2"
+"variable.other.member" = "cyan2"
 
 # === LABELS ===
 "label" = "orange"
@@ -49,20 +50,20 @@
 "punctuation.bracket" = "fg"
 
 # === MOTS-CLÉS ===
-"keyword" = "purple"
+"keyword" = "purple2"
 "keyword.directive" = "cyan"
-"keyword.storage.type" = "purple"                              # mut, ref, etc.
-"keyword.storage.modifier" = "purple"                          # pub, const, static
-"keyword.control" = "purple"                                   # if, else, match, for, while
-
+"keyword.storage.type" = "purple2"                              # mut, ref, etc.
+"keyword.storage.modifier" = "purple2"                          # pub, const, static
+# "keyword.control" = "purple"                                   # if, else, match, for, while
+"keyword.control" = { fg = "purple", modifiers = ["italic"] }
 # === OPÉRATEURS ===
 "operator" = "red"
 
 # === FONCTIONS ===
-"function" = "blue"
+"function" = { fg = "blue", modifiers = ["italic"] }
 "function.builtin" = "blue"
 "function.macro" = "cyan"
-"function.method" = "blue"                                      # Méthodes
+"function.method" = { fg = "blue", modifiers = ["italic"] }
 
 # === AUTRES ÉLÉMENTS ===
 "tag" = "yellow"
@@ -94,7 +95,7 @@
 "diff.minus" = "red"
 
 # === INTERFACE UTILISATEUR ===
-"ui.background" = { bg = "bg0" }
+"ui.background" = { bg = "bg6" }
 "ui.background.separator" = "grey"
 "ui.cursor" = { fg = "bg0", bg = "fg" }
 "ui.cursor.match" = { fg = "orange", bg = "diff_yellow" }
@@ -141,6 +142,9 @@ bg1 = "#333644"
 bg2 = "#363a49"
 bg3 = "#3a3e4e"
 bg4 = "#404455"
+bg5 = "#171719"
+bg6 = "#21252B"
+bg7 = "#354157"
 bg_grey = "#7e869b"
 bg_red = "#ec7279"
 diff_red = "#55393d"
@@ -153,11 +157,15 @@ diff_yellow = "#4e432f"
 fg = "#c5cdd9"
 red = "#ec7279"
 orange = "#e59b77"
+orange2 = "#DE8474"
 yellow = "#deb974"
 green = "#a0c980"
+green2 = "#77E59C"
 cyan = "#5dbbc1"
+cyan2 = "#74DEB9"
 blue = "#6cb6eb"
-purple = "#d38aea"
+purple = "#9C77E5"
+purple2 = "#B974DE"
 grey = "#7e8294"
 grey_dim = "#5b5e71"
 
