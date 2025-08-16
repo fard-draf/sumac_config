@@ -1,0 +1,242 @@
+keybinds clear-defaults=true {
+    // ## Section principale de contrôle des modes ##
+    // Centralise tous les raccourcis pour entrer dans un mode.
+    // Le mode "locked" est le seul qui a un raccourci de sortie différent.
+    // Tous les autres modes retournent à "normal" avec 'esc' ou 'enter'.
+
+    unbind "Esc"
+    
+    shared_except "locked" {
+        // Raccourcis pour changer de mode
+        bind "Ctrl 0" { SwitchToMode "locked"; }
+        bind "Ctrl 1" { SwitchToMode "pane"; }
+        bind "Ctrl 2" { SwitchToMode "tab"; }
+        bind "Ctrl 3" { SwitchToMode "move"; }
+        bind "Ctrl 4" { SwitchToMode "resize"; }
+        bind "Ctrl 5" { SwitchToMode "scroll"; }
+        bind "Ctrl 6" { SwitchToMode "session"; }
+        bind "Ctrl 7" { SwitchToMode "search"; }
+        bind "Ctrl 8" { SwitchToMode "tmux"; }
+
+        // Raccourcis globaux conservés
+        bind "Ctrl 9" { Quit; }
+        
+        // Vos raccourcis Alt pour une navigation rapide sans changer de mode
+        bind "Alt left"  { MoveFocusOrTab "left"; }
+        bind "Alt down"  { MoveFocus "down"; }
+        bind "Alt up"    { MoveFocus "up"; }
+        bind "Alt right" { MoveFocusOrTab "right"; }
+        bind "Alt h"     { MoveFocusOrTab "left"; }
+        bind "Alt j"     { MoveFocus "down"; }
+        bind "Alt k"     { MoveFocus "up"; }
+        bind "Alt l"     { MoveFocusOrTab "right"; }
+        bind "Alt n"     { NewPane; }
+        bind "Alt i"     { MoveTab "left"; }
+        bind "Alt o"     { MoveTab "right"; }
+        bind "Alt +"     { Resize "Increase"; }
+        bind "Alt -"     { Resize "Decrease"; }
+        bind "Alt ="     { Resize "Increase"; }
+        bind "Alt ["     { PreviousSwapLayout; }
+        bind "Alt ]"     { NextSwapLayout; }
+        bind "Alt f"     { ToggleFloatingPanes; }
+    }
+
+    // Comportement pour quitter les modes et revenir à la normale
+    shared_except "normal" "locked" "entersearch" {
+        bind "enter" { SwitchToMode "normal"; }
+    }
+    shared_except "normal" "locked" "entersearch" "renametab" "renamepane" {
+        bind "esc" { SwitchToMode "normal"; }
+    }
+
+    // ## Définitions des modes spécifiques ##
+    // La logique interne à chaque mode est conservée depuis votre configuration.
+
+    locked {
+        // Seule action en mode verrouillé : déverrouiller.
+        bind "Ctrl 0" { SwitchToMode "normal"; }
+        bind "Alt left"  { MoveFocusOrTab "left"; }
+        bind "Alt down"  { MoveFocus "down"; }
+        bind "Alt up"    { MoveFocus "up"; }
+        bind "Alt right" { MoveFocusOrTab "right"; }
+        bind "Alt h"     { MoveFocusOrTab "left"; }
+        bind "Alt j"     { MoveFocus "down"; }
+        bind "Alt k"     { MoveFocus "up"; }
+        bind "Alt l"     { MoveFocusOrTab "right"; }
+        bind "Alt n"     { NewPane; }
+        bind "Alt i"     { MoveTab "left"; }
+        bind "Alt o"     { MoveTab "right"; }
+        bind "Alt +"     { Resize "Increase"; }
+        bind "Alt -"     { Resize "Decrease"; }
+        bind "Alt ="     { Resize "Increase"; }
+        bind "Alt ["     { PreviousSwapLayout; }
+        bind "Alt ]"     { NextSwapLayout; }
+        bind "Alt f"     { ToggleFloatingPanes; }
+
+    }
+
+    pane {
+        // --- Nouveaux raccourcis d'action ---
+        bind "Ctrl 1" { NewPane; SwitchToMode "normal"; }                   // new
+        bind "Ctrl 2" { ToggleFloatingPanes; SwitchToMode "normal"; }        // floatting
+        bind "Ctrl 3" { CloseFocus; SwitchToMode "normal"; }                 // close
+        bind "Ctrl 4" { NewPane "left"; SwitchToMode "normal"; }             // split left
+        bind "Ctrl 5" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; } // toggle embed
+        bind "Ctrl 6" { NewPane "right"; SwitchToMode "normal"; }            // split right
+        
+        // --- Raccourcis de navigation/gestion conservés ---
+        bind "left" "h" { MoveFocus "left"; }
+        bind "down" "j" { MoveFocus "down"; }
+        bind "up"   "k" { MoveFocus "up"; }
+        bind "right" "l"{ MoveFocus "right"; }
+        bind "p"        { SwitchFocus; }
+        bind "c"        { SwitchToMode "renamepane"; PaneNameInput 0; }
+        bind "f"        { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        bind "i"        { TogglePanePinned; SwitchToMode "normal"; }
+        bind "z"        { TogglePaneFrames; SwitchToMode "normal"; }
+        // Les anciens raccourcis comme 'd', 'r', 'x' sont intentionnellement retirés.
+    }
+
+    tab {
+        // --- Nouveaux raccourcis d'action ---
+        bind "Ctrl 1" { NewTab; SwitchToMode "normal"; }                     // new
+        bind "Ctrl 2" { ToggleActiveSyncTab; SwitchToMode "normal"; }       // sync
+        bind "Ctrl 3" { CloseTab; SwitchToMode "normal"; }                   // close
+        bind "Ctrl 4" { BreakPaneLeft; SwitchToMode "normal"; }              // break pane to left
+        bind "Ctrl 5" { BreakPane; SwitchToMode "normal"; }                  // break pane to new tab
+        bind "Ctrl 6" { BreakPaneRight; SwitchToMode "normal"; }             // break pane to right
+        
+        // --- Raccourcis de navigation/gestion conservés ---
+        bind "left" "h" { GoToPreviousTab; }
+        bind "down" "j" { GoToNextTab; }
+        bind "up"   "k" { GoToPreviousTab; }
+        bind "right" "l"{ GoToNextTab; }
+        bind "r"        { SwitchToMode "renametab"; TabNameInput 0; }
+        bind "tab"      { ToggleTab; }
+        bind "1" { GoToTab 1; SwitchToMode "normal"; }
+        bind "2" { GoToTab 2; SwitchToMode "normal"; }
+        bind "3" { GoToTab 3; SwitchToMode "normal"; }
+        bind "4" { GoToTab 4; SwitchToMode "normal"; }
+        bind "5" { GoToTab 5; SwitchToMode "normal"; }
+        bind "6" { GoToTab 6; SwitchToMode "normal"; }
+        bind "7" { GoToTab 7; SwitchToMode "normal"; }
+        bind "8" { GoToTab 8; SwitchToMode "normal"; }
+        bind "9" { GoToTab 9; SwitchToMode "normal"; }
+        // Les anciens raccourcis comme 'n', 'x', 'b' sont intentionnellement retirés.
+    }
+    
+    resize {
+        bind "left"  { Resize "Increase left"; }
+        bind "down"  { Resize "Increase down"; }
+        bind "up"    { Resize "Increase up"; }
+        bind "right" { Resize "Increase right"; }
+        bind "h"     { Resize "Increase left"; }
+        bind "j"     { Resize "Increase down"; }
+        bind "k"     { Resize "Increase up"; }
+        bind "l"     { Resize "Increase right"; }
+        bind "H"     { Resize "Decrease left"; }
+        bind "J"     { Resize "Decrease down"; }
+        bind "K"     { Resize "Decrease up"; }
+        bind "L"     { Resize "Decrease right"; }
+        bind "+"     { Resize "Increase"; }
+        bind "="     { Resize "Increase"; }
+        bind "-"     { Resize "Decrease"; }
+    }
+
+    move {
+        bind "left"  { MovePane "left"; }
+        bind "down"  { MovePane "down"; }
+        bind "up"    { MovePane "up"; }
+        bind "right" { MovePane "right"; }
+        bind "h"     { MovePane "left"; }
+        bind "j"     { MovePane "down"; }
+        bind "k"     { MovePane "up"; }
+        bind "l"     { MovePane "right"; }
+        bind "n"     { MovePane; }
+        bind "p"     { MovePaneBackwards; }
+        bind "tab"   { MovePane; }
+    }
+
+    scroll {
+        bind "e"          { EditScrollback; SwitchToMode "normal"; }
+        bind "s"          { SwitchToMode "entersearch"; SearchInput 0; }
+        bind "Ctrl c"     { ScrollToBottom; SwitchToMode "normal"; }
+        bind "j" "down"   { ScrollDown; }
+        bind "k" "up"     { ScrollUp; }
+        bind "Ctrl f" "l" "right" "PageDown" { PageScrollDown; }
+        bind "Ctrl b" "h" "left"  "PageUp"   { PageScrollUp; }
+        bind "d"          { HalfPageScrollDown; }
+        bind "u"          { HalfPageScrollUp; }
+    }
+    
+    search {
+        bind "n" { Search "down"; }
+        bind "p" { Search "up"; }
+        bind "c" { SearchToggleOption "CaseSensitivity"; }
+        bind "w" { SearchToggleOption "Wrap"; }
+        bind "o" { SearchToggleOption "WholeWord"; }
+    }
+
+    entersearch {
+        bind "Ctrl c" "esc" { SwitchToMode "scroll"; }
+        bind "enter"        { SwitchToMode "search"; }
+    }
+
+    session {
+        bind "d" { Detach; }
+        bind "a" {
+            LaunchOrFocusPlugin "zellij:about" {
+                floating true
+                move_to_focused_tab true
+            }; SwitchToMode "normal"
+        }
+        bind "c" {
+            LaunchOrFocusPlugin "configuration" {
+                floating true
+                move_to_focused_tab true
+            }; SwitchToMode "normal"
+        }
+        bind "p" {
+            LaunchOrFocusPlugin "plugin-manager" {
+                floating true
+                move_to_focused_tab true
+            }; SwitchToMode "normal"
+        }
+        bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            }; SwitchToMode "normal"
+        }
+    }
+
+    tmux {
+        bind "d" { Detach; }
+        bind "x" { CloseFocus; SwitchToMode "normal"; }
+        bind "left" "h" { MoveFocus "left"; SwitchToMode "normal"; }
+        bind "down" "j" { MoveFocus "down"; SwitchToMode "normal"; }
+        bind "up" "k"   { MoveFocus "up"; SwitchToMode "normal"; }
+        bind "right" "l"{ MoveFocus "right"; SwitchToMode "normal"; }
+        bind "\""       { NewPane "down"; SwitchToMode "normal"; }
+        bind "%"        { NewPane "right"; SwitchToMode "normal"; }
+        bind "c"        { NewTab; SwitchToMode "normal"; }
+        bind ","        { SwitchToMode "renametab"; }
+        bind "["        { SwitchToMode "scroll"; }
+        bind "Ctrl b"   { Write 2; SwitchToMode "normal"; }
+        bind "n"        { GoToNextTab; SwitchToMode "normal"; }
+        bind "p"        { GoToPreviousTab; SwitchToMode "normal"; }
+        bind "z"        { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        bind "o"        { FocusNextPane; }
+        bind "space"    { NextSwapLayout; }
+    }
+    
+    // Configurations pour renommer les panneaux et onglets
+    renametab {
+        bind "Ctrl c" { SwitchToMode "normal"; }
+        bind "esc"    { UndoRenameTab; SwitchToMode "tab"; }
+    }
+    renamepane {
+        bind "Ctrl c" { SwitchToMode "normal"; }
+        bind "esc"    { UndoRenamePane; SwitchToMode "pane"; }
+    }
+}
