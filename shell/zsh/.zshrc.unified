@@ -72,28 +72,45 @@ unset rc
 # Pour personnaliser le prompt, lancer `p10k configure` ou éditer ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# ======= CHARGEMENT DES FICHIERS MODULAIRES PERSONNALISÉS =======
+# # ======= CHARGEMENT DES FICHIERS MODULAIRES PERSONNALISÉS =======
+# mkdir -p /mnt/repo/dev/warehouse/configs/shell/zsh \
+#            /mnt/repo/dev/warehouse/configs/shell/common \
+#            /mnt/repo/dev/warehouse/configs/env
+
+# # Charger les fichiers de configuration modulaires
+# for config_file in /mnt/repo/dev/warehouse/configs/shell/zsh/*.zsh; do
+#   # Éviter de se sourcer soi-même si le lien symbolique est dans le chemin
+#   if [[ -f "$config_file" ]] && [[ "$(realpath "$config_file")" != "$(realpath "$0")" ]]; then
+#     source "$config_file"
+#   fi
+# done
+
+# # Charger les variables d'environnement si elles existent
+# if [[ -f /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh ]]; then
+#   source /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh
+# fi
+
+# if [[ -f /mnt/repo/dev/warehouse/configs/env/paths.env ]]; then
+#   source /mnt/repo/dev/warehouse/configs/env/paths.env
+# fi
+# ======= CHARGEMENT DES FICHIERS MODULAIRES PERSONNALISÉS (VERSION CORRIGÉE) =======
+# Créer les répertoires nécessaires
 mkdir -p /mnt/repo/dev/warehouse/configs/shell/zsh \
-           /mnt/repo/dev/warehouse/configs/shell/common \
-           /mnt/repo/dev/warehouse/configs/env
+         /mnt/repo/dev/warehouse/configs/shell/common \
+         /mnt/repo/dev/warehouse/configs/env
+
+# Définir le chemin canonique en utilisant une fonction interne de Zsh (:A)
+# C'est plus robuste et portable que la commande `realpath`.
+local main_zshrc_path="${ZDOTDIR:-$HOME}/.zshrc:A"
 
 # Charger les fichiers de configuration modulaires
 for config_file in /mnt/repo/dev/warehouse/configs/shell/zsh/*.zsh; do
-  # Éviter de se sourcer soi-même si le lien symbolique est dans le chemin
-  if [[ -f "$config_file" ]] && [[ "$(realpath "$config_file")" != "$(realpath "$0")" ]]; then
+  # On utilise aussi ":A" ici pour la comparaison
+  if [[ -f "$config_file" ]] && [[ "$config_file:A" != "$main_zshrc_path" ]]; then
     source "$config_file"
   fi
 done
-
-# Charger les variables d'environnement si elles existent
-if [[ -f /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh ]]; then
-  source /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh
-fi
-
-if [[ -f /mnt/repo/dev/warehouse/configs/env/paths.env ]]; then
-  source /mnt/repo/dev/warehouse/configs/env/paths.env
-fi
-
+unset main_zshrc_path
 # ================================================================
 # SECTION FINALE : COMMANDES INTERACTIVES ET NON-INTERACTIVES
 # ================================================================
