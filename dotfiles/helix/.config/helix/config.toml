@@ -11,8 +11,12 @@ rulers = [120]
 auto-format = true
 default-yank-register = "+"
 auto-info = true
+scroll-lines = 30
 end-of-line-diagnostics = "disable"
 #font = "Fira Code"
+#==========================================
+[editor.whitespace]
+trim-trailing-whitespace = true
 #==========================================
 [editor.cursor-shape]
 insert = "bar"
@@ -22,6 +26,7 @@ select = "underline"
 [editor.indent-guides]
 # Affiche les guides d'indentation
 render = true
+rainbow-indent = "dim"
 #==========================================
 [editor.file-picker]
 hidden = false #show hidden files
@@ -64,6 +69,8 @@ A-h = "move_prev_word_start"
 #==========================================
 [keys.normal]
 A-f = ":format"
+C-r = ":rl"
+C-s = ":w"
 #==========================================
 [keys.normal."+"]
 c = ":run-shell-command cargo check"

@@ -37,7 +37,7 @@
 # === VARIABLES ===
 "variable" = "fg"
 "variable.builtin" = "orange"
-"variable.parameter" = "fg"
+"variable.parameter" = { fg = "fg", modifiers = ["italic"] } 
 "variable.other.member" = "fg"
 
 # === LABELS ===
