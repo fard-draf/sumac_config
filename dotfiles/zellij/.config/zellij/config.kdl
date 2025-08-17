@@ -6,7 +6,7 @@ theme "ayu-dark"
 
 keybinds clear-defaults=true {
     locked {
-        bind "Ctrl 0" { SwitchToMode "normal"; }
+        bind "F11" { SwitchToMode "normal"; }
     }
     pane {
         bind "left" { MoveFocus "left"; }
@@ -166,18 +166,18 @@ keybinds clear-defaults=true {
         bind "Alt o" { MoveTab "right"; }
     }
     shared_except "locked" {
-        bind "Ctrl 0" { SwitchToMode "locked"; }
-        bind "Ctrl 7" { SwitchToMode "search"; }
-        bind "Ctrl F2" { SwitchToMode "tmux"; }
-        bind "Ctrl F1" { Quit; }
+        bind "F11" { SwitchToMode "locked"; }
+        bind "F3" { SwitchToMode "search"; }
+        bind "F2" { SwitchToMode "tmux"; }
+        bind "F1" { Quit; }
     }
     shared_except "locked" "pane" "tab" {
-        bind "Ctrl 9" { SwitchToMode "pane"; }
-        bind "Ctrl 8" { SwitchToMode "tab"; }
-        bind "Ctrl 6" { SwitchToMode "move"; }
-        bind "Ctrl 7" { SwitchToMode "resize"; }
-        bind "Ctrl F5" { SwitchToMode "scroll"; }
-        bind "Ctrl F6" { SwitchToMode "session"; }
+        bind "F10" { SwitchToMode "pane"; }
+        bind "F9" { SwitchToMode "tab"; }
+        bind "F7" { SwitchToMode "move"; }
+        bind "F8" { SwitchToMode "resize"; }
+        bind "F6" { SwitchToMode "scroll"; }
+        bind "F5" { SwitchToMode "session"; }
         
     }
     shared_except "normal" "locked" "entersearch" {

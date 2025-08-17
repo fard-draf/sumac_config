@@ -73,9 +73,9 @@ C-r = ":rl"
 C-s = ":w"
 #==========================================
 [keys.normal."+"]
-c = ":run-shell-command cargo check"
-t = ":run-shell-command cargo test"
-b = ":run-shell-command cargo build"
+c = ":sh cargo check"
+t = ":sh cargo test"
+b = ":sh cargo build"
 #==========================================
 [keys.normal.space]
 # La touche 'a' après 'space' exécutera la commande
