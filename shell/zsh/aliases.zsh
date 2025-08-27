@@ -11,13 +11,17 @@ alias md='mkdir -p'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias :q='exit'
 
 # ======= ALIAS NAVIGATION REPOSITORY =======
 alias repo='cd /mnt/repo'
 alias dev='cd /mnt/repo/dev'
 alias data='cd /mnt/repo/data'
 alias wh='cd /mnt/repo/dev/warehouse'
+alias conf='cd /mnt/repo/dev/warehouse/configs'
 alias week='cd /mnt/repo/dev/warehouse/playground/weekly'
+alias dot='cd /mnt/repo/dev/warehouse/configs/dotfiles'
+
 alias korri='cd /mnt/repo/dev/warehouse/projects/professional/korrigan'
 alias ctsol='cd /mnt/repo/dev/warehouse/containers/compose/solana'
 alias inbox='cd /mnt/repo/data/00-INBOX'
@@ -128,19 +132,14 @@ alias tsc-check='tsc --noEmit'
 
 # ======= ALIAS RUST =======
 alias cb='cargo build'
+alias cch='cargo check'
 alias cr='cargo run'
 alias ct='cargo test'
-alias cc='cargo check'
+alias ccl='cargo clean'
 alias cbn='cargo build --release'
+alias cbr=' RUSTFLAGS="-A warnings" cargo build' #skip warns
 alias crn='cargo run --release'
 alias cup='cargo update'
 alias cafmt='cargo fmt'
 alias caclippy='cargo clippy'
 
-# ======= ALIAS SOLANA =======
-alias sol='solana'
-alias solb='solana balance'
-alias solc='solana config'
-alias sold='solana deploy'
-alias solp='solana program'
-alias sola='solana address'

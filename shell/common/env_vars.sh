@@ -9,6 +9,9 @@ export RUSTUP_HOME="/mnt/repo/dev/tools/rust/rustup"
 export NODEJS_HOME="/mnt/repo/dev/tools/nodejs"
 export npm_config_prefix="$NODEJS_HOME/npm-global"
 export npm_config_cache="$NODEJS_HOME/npm-cache"
+#=======================================================PYTHON
+export PYENV_ROOT="/mnt/repo/dev/tools/pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 #=======================================================YARN
 export YARN_HOME="/mnt/repo/dev/tools/yarn"
 export YARN_GLOBAL_FOLDER="${YARN_HOME}/global"
@@ -16,5 +19,8 @@ export YARN_CACHE_FOLDER="${YARN_GLOBAL_FOLDER}/cache"
 export PATH="${YARN_HOME}/bin:${YARN_GLOBAL_FOLDER}/bin:$PATH"
 #=======================================================ZSH
 export ZSH="$HOME/.oh-my-zsh"
-#===podman
+#=======================================================PODMAN
 export CONTAINERS_STORAGE_OPTS="--root /mnt/repo/dev/tools/podman/storage"
+#=======================================================PREFERENCES
+export EDITOR=/bin/hx
+export VISUAL=/bin/hx

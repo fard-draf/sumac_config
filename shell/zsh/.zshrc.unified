@@ -26,7 +26,6 @@ path_prepend() {
 # Ajout des chemins dans l'ordre de priorité
 path_prepend "$CARGO_HOME/bin"
 path_prepend "/mnt/repo/dev/tools/rust/rust-analyzer"
-path_prepend "/mnt/repo/dev/tools/solana/active_release/bin"
 path_prepend "$HOME/.local/bin"
 path_prepend "$HOME/bin"
 path_prepend "$NODEJS_HOME/bin"
@@ -71,39 +70,16 @@ unset rc
 # ======= CONFIGURATION DE POWERLEVEL10K =======
 # Pour personnaliser le prompt, lancer `p10k configure` ou éditer ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# # ======= CHARGEMENT DES FICHIERS MODULAIRES PERSONNALISÉS =======
-# mkdir -p /mnt/repo/dev/warehouse/configs/shell/zsh \
-#            /mnt/repo/dev/warehouse/configs/shell/common \
-#            /mnt/repo/dev/warehouse/configs/env
-
-# # Charger les fichiers de configuration modulaires
-# for config_file in /mnt/repo/dev/warehouse/configs/shell/zsh/*.zsh; do
-#   # Éviter de se sourcer soi-même si le lien symbolique est dans le chemin
-#   if [[ -f "$config_file" ]] && [[ "$(realpath "$config_file")" != "$(realpath "$0")" ]]; then
-#     source "$config_file"
-#   fi
-# done
-
-# # Charger les variables d'environnement si elles existent
-# if [[ -f /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh ]]; then
-#   source /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh
-# fi
-
-# if [[ -f /mnt/repo/dev/warehouse/configs/env/paths.env ]]; then
-#   source /mnt/repo/dev/warehouse/configs/env/paths.env
-# fi
-# ======= CHARGEMENT DES FICHIERS MODULAIRES PERSONNALISÉS (VERSION CORRIGÉE) =======
+# ======= CHARGEMENT DES FICHIERS MODULAIRES (VERSION FINALE CORRIGÉE) =======
 # Créer les répertoires nécessaires
 mkdir -p /mnt/repo/dev/warehouse/configs/shell/zsh \
          /mnt/repo/dev/warehouse/configs/shell/common \
          /mnt/repo/dev/warehouse/configs/env
 
 # Définir le chemin canonique en utilisant une fonction interne de Zsh (:A)
-# C'est plus robuste et portable que la commande `realpath`.
 local main_zshrc_path="${ZDOTDIR:-$HOME}/.zshrc:A"
 
-# Charger les fichiers de configuration modulaires
+# 1. Charger les fichiers de configuration Zsh (tous les fichiers presents dans le dossier)
 for config_file in /mnt/repo/dev/warehouse/configs/shell/zsh/*.zsh; do
   # On utilise aussi ":A" ici pour la comparaison
   if [[ -f "$config_file" ]] && [[ "$config_file:A" != "$main_zshrc_path" ]]; then
@@ -111,6 +87,16 @@ for config_file in /mnt/repo/dev/warehouse/configs/shell/zsh/*.zsh; do
   fi
 done
 unset main_zshrc_path
+
+# 2. RESTAURER le chargement des variables d'environnement et des paths
+if [[ -f /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh ]]; then
+  source /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh
+fi
+
+if [[ -f /mnt/repo/dev/warehouse/configs/env/paths.env ]]; then
+  source /mnt/repo/dev/warehouse/configs/env/paths.env
+fi
+
 # ================================================================
 # SECTION FINALE : COMMANDES INTERACTIVES ET NON-INTERACTIVES
 # ================================================================
