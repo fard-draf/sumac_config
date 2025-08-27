@@ -18,12 +18,8 @@ alias repo='cd /mnt/repo'
 alias dev='cd /mnt/repo/dev'
 alias data='cd /mnt/repo/data'
 alias wh='cd /mnt/repo/dev/warehouse'
-alias conf='cd /mnt/repo/dev/warehouse/configs'
 alias week='cd /mnt/repo/dev/warehouse/playground/weekly'
-alias dot='cd /mnt/repo/dev/warehouse/configs/dotfiles'
-
 alias korri='cd /mnt/repo/dev/warehouse/projects/professional/korrigan'
-alias ctsol='cd /mnt/repo/dev/warehouse/containers/compose/solana'
 alias inbox='cd /mnt/repo/data/00-INBOX'
 alias projets='cd /mnt/repo/data/01-PROJETS'
 alias resources='cd /mnt/repo/data/02-RESOURCES'
@@ -31,8 +27,13 @@ alias archives='cd /mnt/repo/data/03-ARCHIVES'
 alias admin='cd /mnt/repo/data/04-ADMIN'
 
 # ======= ALIAS CONFIGURATION =======
+alias conf='cd /mnt/repo/dev/warehouse/configs'
 alias zshrc='hx /mnt/repo/dev/warehouse/configs/shell/zsh/.zshrc.unified'    # Éditer rapidement votre .zshrc
 alias reload='source /mnt/repo/dev/warehouse/configs/shell/zsh/.zshrc.unified'    # Recharger zsh
+alias dot='cd /mnt/repo/dev/warehouse/configs/dotfiles'
+alias hxconf='hx /mnt/repo/dev/warehouse/configs/dotfiles/helix/.config/helix/config.toml'
+alias zellijconf='hx /mnt/repo/dev/warehouse/configs/dotfiles/zellij/.config/zellij/config.kdl'
+alias zshalias='hx /mnt/repo/dev/warehouse/configs/shell/zsh/aliases.zsh'
 
 # ======= ALIAS TREE =======
 alias t1='tree -L 1 -a -I ".git"'
