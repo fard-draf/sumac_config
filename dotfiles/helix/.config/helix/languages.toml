@@ -1,18 +1,29 @@
+#
+# Syntaxe correcte pour les versions récentes de Helix
+#
+
 [[language]]
 name = "rust"
-formatter = { command = "rustfmt", args = ["--emit=stdout"] }
+auto-format = true
+# On déclare la liste des serveurs à utiliser pour ce langage
 language-servers = [ "rust-analyzer" ]
 indent = { tab-width = 4, unit = "    " }
 
+# On configure ensuite chaque serveur de langage dans sa propre table
 [language-server.rust-analyzer]
 command = "rust-analyzer"
-check.command = "cargo clippy -- -A clippy::all"
-checkOnSave = true  # Exécuter Clippy lors de la sauvegarde
 
 [language-server.rust-analyzer.config]
+# Utilise "clippy" pour le diagnostic.
+check.command = "clippy"
+
+# Active toutes les "features" du Cargo.toml.
 cargo.allFeatures = true
+
+# Indispensable pour l'autocomplétion des macros.
 procMacro.enable = true
 
+# Configuration des "inlay hints" (indications dans le code).
 inlayHints.bindingModeHints.enable = true
 inlayHints.chainingHints.enable = true
 inlayHints.closingBraceHints.enable = true
@@ -20,6 +31,3 @@ inlayHints.closingBraceHints.minLines = 10
 inlayHints.parameterHints.enable = true
 inlayHints.typeHints.enable = true
 inlayHints.typeHints.hideLessSpecificTypes = true
-
-hover.actions.enable = true
-completion.autoimport.enable = true

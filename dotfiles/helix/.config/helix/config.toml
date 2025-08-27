@@ -1,4 +1,4 @@
-theme = "rust_friendly"
+theme = "catppuccin_mocha_custom"
 
 #==================================================================================
 [editor]
@@ -9,11 +9,13 @@ bufferline = "always"
 line-number = "relative"
 rulers = [120]
 auto-format = true
+auto-save=true
 default-yank-register = "+"
 auto-info = true
-scroll-lines = 30
+scroll-lines = 20
 end-of-line-diagnostics = "disable"
-#font = "Fira Code"
+# gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
+# font = "Fira Code"
 #==========================================
 [editor.whitespace]
 trim-trailing-whitespace = true
@@ -26,6 +28,9 @@ select = "underline"
 [editor.indent-guides]
 # Affiche les guides d'indentation
 render = true
+# character = "|"
+# character = "┊"
+# skip-levels = 1
 rainbow-indent = "dim"
 #==========================================
 [editor.file-picker]
@@ -37,7 +42,7 @@ layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 #==========================================
 [editor.inline-diagnostics]
 # Active les diagnostics inline (nouveauté)
-cursor-line = "warning"    # Montre warnings/errors sur la ligne du curseur
+cursor-line = "hint"    # Montre warnings/errors sur la ligne du curseur
 other-lines = "disable"    # Désactive sur les autres lignes
 prefix-len = 1
 max-wrap = 20
@@ -71,6 +76,14 @@ A-h = "move_prev_word_start"
 A-f = ":format"
 C-r = ":rl"
 C-s = ":w"
+0 = "goto_line_end"
+9 = "goto_line_start"
+H = "move_prev_long_word_start"
+L = "move_next_long_word_end"
+# Se déplacer verticalement par 5 lignes
+K = ["move_line_up", "move_line_up", "move_line_up", "move_line_up", "move_line_up"]
+J = ["move_line_down", "move_line_down", "move_line_down", "move_line_down", "move_line_down"]
+
 #==========================================
 [keys.normal."+"]
 c = ":sh cargo check"

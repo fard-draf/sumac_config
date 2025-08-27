@@ -94,7 +94,7 @@
 "diff.minus" = "red"
 
 # === INTERFACE UTILISATEUR ===
-"ui.background" = { bg = "bg0" }
+"ui.background" = { bg = "bg1" }
 "ui.background.separator" = "grey"
 "ui.cursor" = { fg = "bg0", bg = "fg" }
 "ui.cursor.match" = { fg = "orange", bg = "diff_yellow" }
@@ -137,7 +137,7 @@
 [palette]
 black = "#202023"
 bg0 = "#2b2d37"
-bg1 = "#333644"
+bg1 = "#1D242B"
 bg2 = "#363a49"
 bg3 = "#3a3e4e"
 bg4 = "#404455"
