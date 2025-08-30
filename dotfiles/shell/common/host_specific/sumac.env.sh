@@ -1,26 +1,37 @@
+#=======================================================
+#         VARIABLES D'ENVIRONNEMENT PERSONNELLES
+#=======================================================
+export DEV_PATH="/mnt/repo/dev"
+export DOTFILES="$DEV_PATH/warehouse/configs/dotfiles"
+export VAULT_PATH="/mnt/repo/cloud/"
+export SUMAC_PATH="/mnt/repo" 
+
+
+#=======================================================
+#         VARIABLES DES OUTILS DE DÉVELOPPEMENT
+#=======================================================
+
 #=======================================================HELIX
 export HELIX_RUNTIME=~/src/helix/runtime
 #=======================================================TYPESCRIPT
-export TYPESCRIPT_HOME="/mnt/repo/dev/tools/typescript"
+export TYPESCRIPT_HOME="$DEV_PATH/tools/typescript"
 #=======================================================CARGO+RUST
-export CARGO_HOME="/mnt/repo/dev/tools/rust/cargo"
-export RUSTUP_HOME="/mnt/repo/dev/tools/rust/rustup"
+export CARGO_HOME="$DEV_PATH/tools/rust/cargo"
+export RUSTUP_HOME="$DEV_PATH/tools/rust/rustup"
 #=======================================================NODEJS
-export NODEJS_HOME="/mnt/repo/dev/tools/nodejs"
+export NODEJS_HOME="$DEV_PATH/tools/nodejs"
 export npm_config_prefix="$NODEJS_HOME/npm-global"
 export npm_config_cache="$NODEJS_HOME/npm-cache"
 #=======================================================PYTHON
-export PYENV_ROOT="/mnt/repo/dev/tools/pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_ROOT="$DEV_PATH/tools/pyenv"
 #=======================================================YARN
-export YARN_HOME="/mnt/repo/dev/tools/yarn"
+export YARN_HOME="$DEV_PATH/tools/yarn"
 export YARN_GLOBAL_FOLDER="${YARN_HOME}/global"
 export YARN_CACHE_FOLDER="${YARN_GLOBAL_FOLDER}/cache"
-export PATH="${YARN_HOME}/bin:${YARN_GLOBAL_FOLDER}/bin:$PATH"
 #=======================================================ZSH
 export ZSH="$HOME/.oh-my-zsh"
 #=======================================================PODMAN
-export CONTAINERS_STORAGE_OPTS="--root /mnt/repo/dev/tools/podman/storage"
+export CONTAINERS_STORAGE_OPTS="--root $DEV_PATH/tools/podman/storage"
 #=======================================================PREFERENCES
 export EDITOR=/bin/hx
 export VISUAL=/bin/hx

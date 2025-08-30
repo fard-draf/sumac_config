@@ -1,8 +1,8 @@
-
 # ===================================================
-#        FICHIER DE CONFIGURATION ZSH UNIFIÉ
+#        FICHIER DE CONFIGURATION ZSH
 # ===================================================
-
+#Variable d'env personnelle. Les autres sont dans DOTFILES/shell/common/env_vars.sh
+DOTFILES="/mnt/repo/dev/warehouse/configs/dotfiles"
 # ======= OPTIMISATIONS DE PERFORMANCES =======
 # Désactiver les mises à jour automatiques d'Oh My Zsh
 DISABLE_AUTO_UPDATE="true"
@@ -14,24 +14,6 @@ DISABLE_COMPFIX="true"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# ======= GESTION DES CHEMINS =======
-# Fonction pour ajouter à PATH de manière idempotente
-path_prepend() {
-  if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
-    PATH="$1:$PATH"
-  fi
-}
-
-# Ajout des chemins dans l'ordre de priorité
-path_prepend "$CARGO_HOME/bin"
-path_prepend "/mnt/repo/dev/tools/rust/rust-analyzer"
-path_prepend "$HOME/.local/bin"
-path_prepend "$HOME/bin"
-path_prepend "$NODEJS_HOME/bin"
-path_prepend "$NODEJS_HOME/npm-global/bin"
-path_prepend "/mnt/repo/dev/tools/claude/bin"
-path_prepend "$TYPESCRIPT_HOME/bin"
 
 # ======= CONFIGURATION OH MY ZSH =======
 export ZSH="$HOME/.oh-my-zsh"
@@ -70,17 +52,32 @@ unset rc
 # ======= CONFIGURATION DE POWERLEVEL10K =======
 # Pour personnaliser le prompt, lancer `p10k configure` ou éditer ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# ======= CHARGEMENT DES FICHIERS MODULAIRES (VERSION FINALE CORRIGÉE) =======
-# Créer les répertoires nécessaires
-mkdir -p /mnt/repo/dev/warehouse/configs/shell/zsh \
-         /mnt/repo/dev/warehouse/configs/shell/common \
-         /mnt/repo/dev/warehouse/configs/env
+
+# ===================================================
+#      CHARGEMENT DES CONFIGURATIONS SPÉCIFIQUES
+# ===================================================
+
+# Détecter le nom de l'hôte et le convertir en minuscules pour être plus robuste
+local host_name
+host_name=$(hostname)
+HOST_CONFIG_FILE="$DOTFILES/shell/common/host_specific/${host_name:l}.env.sh"
+
+if [[ -f "$HOST_CONFIG_FILE" ]]; then
+  source "$HOST_CONFIG_FILE"
+else
+  echo "WARN: Pas de fichier de configuration trouvé pour l'hôte '${host_name}'."
+  echo "      Chemin cherché : $HOST_CONFIG_FILE"
+fi
+
+unset host_name
+
+# ======= CHARGEMENT DES FICHIERS MODULAIRES =======
 
 # Définir le chemin canonique en utilisant une fonction interne de Zsh (:A)
 local main_zshrc_path="${ZDOTDIR:-$HOME}/.zshrc:A"
 
 # 1. Charger les fichiers de configuration Zsh (tous les fichiers presents dans le dossier)
-for config_file in /mnt/repo/dev/warehouse/configs/shell/zsh/*.zsh; do
+for config_file in "$DOTFILES/shell/zsh/"**/*.zsh; do
   # On utilise aussi ":A" ici pour la comparaison
   if [[ -f "$config_file" ]] && [[ "$config_file:A" != "$main_zshrc_path" ]]; then
     source "$config_file"
@@ -88,15 +85,18 @@ for config_file in /mnt/repo/dev/warehouse/configs/shell/zsh/*.zsh; do
 done
 unset main_zshrc_path
 
-# 2. RESTAURER le chargement des variables d'environnement et des paths
-if [[ -f /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh ]]; then
-  source /mnt/repo/dev/warehouse/configs/shell/common/env_vars.sh
+# Créer les répertoires nécessaires
+mkdir -p $DOTFILES/shell/zsh \
+         $DOTFILES/shell/common 
+         
+# Chargement des variables et des paths
+if [[ -f $DOTFILES/shell/common/env_vars.sh ]]; then
+  source $DOTFILES/shell/common/env_vars.sh
 fi
 
-if [[ -f /mnt/repo/dev/warehouse/configs/env/paths.env ]]; then
-  source /mnt/repo/dev/warehouse/configs/env/paths.env
+if [[ -f $DOTFILES/shell/env/paths.env ]]; then
+  source $DOTFILES/shell/env/paths.env
 fi
-
 # ================================================================
 # SECTION FINALE : COMMANDES INTERACTIVES ET NON-INTERACTIVES
 # ================================================================
@@ -104,8 +104,8 @@ fi
 # --- Commandes exécutées uniquement dans un terminal interactif ---
 if [ -t 0 ]; then
   # 1. Changer le répertoire de démarrage
-  if [[ -d "/mnt/repo/dev/warehouse" ]]; then
-    cd "/mnt/repo/dev/warehouse"
+  if [[ -d "$HOME/dev/warehouse" ]]; then
+    cd "$HOME/dev/warehouse"
   fi
 
   # 2. Corriger le caractère d'effacement du terminal
@@ -115,8 +115,8 @@ fi
 # --- Commandes pouvant être exécutées dans tous les contextes ---
 
 # Gestion des secrets
-if [[ -f "/mnt/repo/dev/warehouse/configs/shell/common/.secrets" ]]; then
-  source "/mnt/repo/dev/warehouse/configs/shell/common/.secrets"
+if [[ -f "$DOTFILES/shell/common/.secrets" ]]; then
+  source "$DOTFILES/shell/common/.secrets"
 fi
 
 # Gestion de l'agent SSH

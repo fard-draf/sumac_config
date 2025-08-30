@@ -14,13 +14,13 @@ function path_prepend() {
 
 # ======= FONCTIONS UTILES =======
 # Créer et cd dans un répertoire
-mkcd() {
+mdcd() {
   mkdir -p "$1" && cd "$1"
 }
 
 # Backup d'un fichier
-bak() {
-  cp -a "$1" "${1}_$(date +%Y%m%d_%H%M%S).bak"
+bup() {
+  cp -a "$1" "${1}_$(date +%Y%m%d_%H%M%S).bup"
 }
 
 # Extraire n'importe quelle archive
@@ -50,4 +50,13 @@ ff() { find . -type f -name "*$1*" -ls; }
 
 # Recherche de texte récursive
 ft() { find . -type f -exec grep -l -s "$1" {} \; | xargs grep -i --color "$1"; }
+
+# Affiche les alias d'un fichier de configuration sourceable
+function show_aliases_from_file() {
+  if [[ -f "$1" ]]; then
+    grep --color=never -E "^\s*alias" "$1"
+  else
+    echo "Fichier non trouvé : $1"
+  fi
+}
 

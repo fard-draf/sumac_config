@@ -1,13 +1,4 @@
-#!/bin/bash
 # Configuration Yarn Berry pour l'environnement de développement
-
-# Variables d'environnement Yarn
-export YARN_HOME="/mnt/repo/dev/tools/yarn"
-export YARN_GLOBAL_FOLDER="${YARN_HOME}/global"
-export YARN_CACHE_FOLDER="${YARN_GLOBAL_FOLDER}/cache"
-
-# Ajout au PATH pour les binaires installés globalement
-export PATH="${YARN_HOME}/bin:${YARN_GLOBAL_FOLDER}/bin:$PATH"
 
 # Alias Yarn Berry
 alias yi='yarn install'
@@ -33,3 +24,5 @@ yarn-info() {
     echo "NodeLinker: $(yarn config get nodeLinker)"
     echo "================================"
 }
+
+alias yarn-al="show_aliases_from_file $DOTFILES/shell/zsh/conf/yarn.zsh"
