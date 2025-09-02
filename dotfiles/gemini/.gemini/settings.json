@@ -1,0 +1,14 @@
+{
+  "selectedAuthType": "gemini-api-key",
+  "theme": "GitHub",
+  "telemetry": {
+    "enabled": false,
+    "logPrompts": false
+  },
+  "fileFiltering": {
+    "respectGitIgnore": true,
+    "enableRecursiveFileSearch": false
+  },
+  "contextFileName": "AGENTS.md",
+  "excludeTools": ["run_shell_command(rm -rf)"]
+}

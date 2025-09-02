@@ -1,0 +1,17 @@
+{
+  "theme": "Ayu Light",
+  "selectedAuthType": "gemini-api-key",
+  "mcpServers": {
+    "fedoraNodeTools": {
+      "command": "npx",
+      "args": [
+        "tsx",
+        "mcp_sysadmin_server.ts"
+      ],
+      "cwd": "/mnt/repo/dev/warehouse/containers/mcp_servers/node_server",
+      "timeout": 15000,
+      "trust": false
+    }
+  
+  }
+}
