@@ -10,5 +10,8 @@
     "enableRecursiveFileSearch": false
   },
   "contextFileName": "AGENTS.md",
-  "excludeTools": ["run_shell_command(rm -rf)"]
+  "excludeTools": [
+    "run_shell_command(rm -rf)"
+  ],
+  "vimMode": true
 }
