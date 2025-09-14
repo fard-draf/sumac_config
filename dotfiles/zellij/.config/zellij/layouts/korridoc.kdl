@@ -1,0 +1,52 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+     
+//==================================================================================
+    tab name="diff" split_direction="horizontal" cwd="$KORRI/libs/korri-n2k" {
+        pane split_direction="vertical" {
+           pane command="sh" {
+                args "-c" "./tools/scripts/find_pgns.sh"
+                size "50%"
+        	}
+            pane command="hx"{
+                args "src/prototypes/mod.rs"
+                size "50%"
+            }
+        }
+    }
+//==================================================================================
+    tab name="canboat" split_direction="horizontal" cwd="$KORRI/libs/korri-n2k" {
+        pane edit="./essentials/canboat.json"             
+    }
+//==================================================================================
+    tab name="proto" split_direction="vertical" cwd="$KORRI/libs/korri-n2k" {
+    	pane command="hx" {
+    		args "src/prototypes/mod.rs"
+    	}
+    }
+//==================================================================================
+    tab name="free1" split_direction="vertical" cwd="$KORRI/libs/korri-n2k" {
+    	pane
+    }//==================================================================================
+    tab name="free2" split_direction="vertical" cwd="$KORRI/libs/korri-n2k" {
+    	pane
+    }//==================================================================================
+    tab name="free3" split_direction="vertical" cwd="$KORRI/libs/korri-n2k" {
+    	pane size="70%"
+    	pane
+    }
+//==================================================================================
+    tab name="Agents" split_direction="vertical" cwd="$KORRI/libs/korri-n2k" {
+    	pane size="50%" command="gemini"
+    	pane command="qwen"
+    }
+
+}

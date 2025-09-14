@@ -1,4 +1,4 @@
-theme = "catppuccin_mocha_custom"
+theme = "rust_friendly"
 
 #==================================================================================
 [editor]
@@ -76,8 +76,8 @@ A-h = "move_prev_word_start"
 A-f = ":format"
 C-r = ":rl"
 C-s = ":w"
-0 = "goto_line_end"
-9 = "goto_line_start"
+# 0 = "goto_line_end"
+# 9 = "goto_line_start"
 H = "move_prev_long_word_start"
 L = "move_next_long_word_end"
 # Se déplacer verticalement par 5 lignes

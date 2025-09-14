@@ -1,15 +1,9 @@
-#
-# Syntaxe correcte pour les versions récentes de Helix
-#
-
 [[language]]
 name = "rust"
 auto-format = true
-# On déclare la liste des serveurs à utiliser pour ce langage
 language-servers = [ "rust-analyzer" ]
 indent = { tab-width = 4, unit = "    " }
 
-# On configure ensuite chaque serveur de langage dans sa propre table
 [language-server.rust-analyzer]
 command = "rust-analyzer"
 
@@ -31,3 +25,15 @@ inlayHints.closingBraceHints.minLines = 10
 inlayHints.parameterHints.enable = true
 inlayHints.typeHints.enable = true
 inlayHints.typeHints.hideLessSpecificTypes = true
+
+
+[[language]]
+name = "json"
+scope = "source.json"
+file-types = ["json", "jsonc", "geojson"]
+# Association avec la grammaire tree-sitter
+grammar = "json" 
+# Commentaire pour le code, si nécessaire
+comment-token = "//"
+# Configuration de l'indentation
+indent = { tab-width = 2, unit = "  " }
